@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Simple Kiosk Dashboard</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 20px;
+        background: #f2f2f2;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        box-sizing: border-box;
+    }
+
+    #clock {
+        text-align: center;
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 25px;
+        color: #222;
+    }
+
+    .grid {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    button {
+        font-size: 32px;
+        font-weight: bold;
+        border: 3px solid #444;
+        border-radius: 18px;
+        background: white;
+        color: #222;
+        padding: 20px;
+        min-height: 120px;
+    }
+
+    button:active {
+        background: #dcdcdc;
+    }
+</style>
+</head>
+
+<body>
+
+<div id="clock">12:00</div>
+
+<div class="grid">
+
+    <button onclick="openPhone()">Phone</button>
+
+    <button onclick="openAlarm()">Alarm</button>
+
+    <button onclick="openCamera()">Camera</button>
+
+    <button onclick="openPhotos()">Photos</button>
+
+    <button onclick="openGmail()">Gmail</button>
+
+    <button onclick="callPerson('01234567890')">David</button>
+
+    <button onclick="callPerson('09876543210')">Sarah</button>
+
+    <button onclick="callPerson('01112223333')">Doctor</button>
+
+</div>
+
+<script>
+
+function updateClock() {
+    const now = new Date();
+
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+
+    minutes = minutes.toString().padStart(2, '0');
+
+    document.getElementById("clock").innerText =
+        hours + ":" + minutes;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+function openPhone() {
+    window.location.href = "tel:";
+}
+
+function openAlarm() {
+    window.location.href =
+    "intent://#Intent;action=android.intent.action.SHOW_ALARMS;end";
+}
+
+function openCamera() {
+    window.location.href =
+    "intent://#Intent;action=android.media.action.IMAGE_CAPTURE;end";
+}
+
+function openPhotos() {
+    window.location.href =
+    "intent://#Intent;action=android.intent.action.VIEW;type=image/*;end";
+}
+
+function openGmail() {
+    window.location.href =
+    "intent://#Intent;package=com.google.android.gm;end";
+}
+
+function callPerson(number) {
+    window.location.href = "tel:" + number;
+}
+
+</script>
+
+</body>
+</html>
